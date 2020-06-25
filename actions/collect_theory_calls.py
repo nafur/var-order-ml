@@ -33,7 +33,8 @@ def collect_theory_calls(args):
     logging.info('Writing list of benchmarks to {}'.format(benchmarkset_file))
     if not args.dry:
         f = open(benchmarkset_file, 'w')
-        f.write('\n'.join(benchmark_list) + '\n')
+        benchmarks = map(lambda s: os.path.join(os.getcwd(), s), benchmark_list)
+        f.write('\n'.join(benchmarks) + '\n')
         f.close()
     
     print('Now run every relevant solver on the collect benchmarks as follows:')
