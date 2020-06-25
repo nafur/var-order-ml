@@ -19,7 +19,7 @@ def collect_theory_calls(args):
                 continue
 
             basepart = os.path.basename(os.path.dirname(file))
-            tcpart = os.path.basename(target)
+            tcpart = os.path.basename(file)
             targetfile = os.path.join(target, "{}-{}".format(basepart, tcpart))
 
             logging.debug('Copying "{}" to "{}"'.format(file, targetfile))
