@@ -30,7 +30,7 @@ def collect_theory_calls(args):
         bar.finish()
     
     benchmarkset_file = 'benchmark_set_{}'.format(target)
-    logging.debug('Writing list of benchmarks to {}'.format(benchmarkset_file))
+    logging.info('Writing list of benchmarks to {}'.format(benchmarkset_file))
     if not args.dry:
         f = open(benchmarkset_file, 'w')
         f.write('\n'.join(benchmark_list) + '\n')

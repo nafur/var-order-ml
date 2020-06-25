@@ -1,6 +1,7 @@
 import logging
 import os
 import subprocess
+import sys
 
 from actions import utils
 
