@@ -44,10 +44,10 @@ def merge_solver_results(results, solvername, csvfilename):
     reader = csv.DictReader(file)
     for row in reader:
         if not row['benchmark'] in results:
-            logging.info('found results for {} on {}, but no features were parsed for this file'.format(solvername, row['benchmark']))
+            logging.debug('found results for {} on {}, but no features were parsed for this file'.format(solvername, row['benchmark']))
             continue
         if row['time_cpu'] == '':
-            logging.info('no cpu time was given for {} on {}'.format(solvername, row['benchmark']))
+            logging.debug('no cpu time was given for {} on {}'.format(solvername, row['benchmark']))
             continue
         assert row['benchmark'] in results
         results[row['benchmark']]['results'][solvername] = float(row['time_cpu'])
