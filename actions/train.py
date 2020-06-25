@@ -17,7 +17,11 @@ def train_model(args, binary, modelfile):
 
 def train(args):
     build_models(args)
-    for model in glob.glob('models/train_*.cpp'):
-        binary = model[:-4]
-        modelfile = binary[7:] + '.model'
-        train_model(args, binary, modelfile)
+    if args.models:
+        for m in args.models:
+            train_model(args, 'models/train_{}'.format(m), 'train_{}.model'.format(m))
+    else:
+        for model in glob.glob('models/train_*.cpp'):
+            binary = model[:-4]
+            modelfile = binary[7:] + '.model'
+            train_model(args, binary, modelfile)

@@ -64,6 +64,7 @@ parser_cr.add_argument('--result', default='data.json', help='data file with all
 # Subparser for train
 parser_t = subparsers.add_parser('train', help='train the classifiers')
 parser_t.add_argument('data', default='data.json', help='data file with results')
+parser_t.add_argument('models', nargs='*', help='models to train')
 
 # Subparser for evaluate
 parser_e = subparsers.add_parser('evaluate', help='Evaluate the classifiers')
