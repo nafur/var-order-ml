@@ -67,13 +67,7 @@ parser_t = subparsers.add_parser('train', help='Train the classifiers')
 # Subparser for evaluate
 parser_e = subparsers.add_parser('evaluate', help='Evaluate the classifiers')
 
-try:
-    args = parser.parse_args()
-except:
-    print()
-    print()
-    parser.print_help()
-    sys.exit(1)
+args = parser.parse_args()
 
 if args.verbose == 0:
     logging.basicConfig(level=logging.WARN)
