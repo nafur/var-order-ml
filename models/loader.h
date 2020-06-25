@@ -92,6 +92,7 @@ void filter_data(Data& data) {
         double min = *mm.first;
         double max = *mm.second;
         if (max <= 0.01) return true;
+        if (r.size() < 2) return false;
         if (min*1.5 >= max) return true;
         return false;
     });
