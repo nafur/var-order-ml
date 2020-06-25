@@ -11,7 +11,7 @@ import shutil
 import subprocess
 import sys
 
-from actions import export_theory_calls, collect_theory_calls, generate_results, collect_results, train
+from actions import export_theory_calls, collect_theory_calls, generate_results, collect_results, train, evaluate
 
 def guess_scratch_dir():
     match = re.match('(/barrett/scratch/[0-9a-zA-Z]+).*', os.getcwd())
@@ -68,6 +68,8 @@ parser_t.add_argument('models', nargs='*', help='models to train')
 
 # Subparser for evaluate
 parser_e = subparsers.add_parser('evaluate', help='Evaluate the classifiers')
+parser_e.add_argument('data', default='data.json', help='data file with results')
+parser_e.add_argument('models', nargs='*', help='models to evaluate')
 
 args = parser.parse_args()
 
@@ -88,5 +90,7 @@ elif args.subcommand == 'collect-results':
     collect_results.collect_results(args)
 elif args.subcommand == 'train':
     train.train(args)
+elif args.subcommand == 'evaluate':
+    evaluate.evaluate(args)
 else:
     print('Unknown: {}'.format(args.subcommand))
