@@ -19,5 +19,5 @@ def train(args):
     build_models(args)
     for model in glob.glob('models/train_*.cpp'):
         binary = model[:4]
-        modelfile = binary[6:]
+        modelfile = binary[6:] + '.model'
         train_model(args, binary, modelfile)
