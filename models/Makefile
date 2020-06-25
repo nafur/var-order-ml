@@ -10,5 +10,7 @@ download_dlib:
 		&& make -j4 dlib
 
 
+OPTS := -Wno-unknown-attributes -I dlib/ -L dlib/build/dlib/
+
 %: %.cpp $(DEPS)
-	clang++ -std=c++11 -g -o $@ $< -I dlib/ -L dlib/build/dlib/ -ldlib -lblas -llapack
+	clang++ -std=c++11 -g -o $@ $< $(OPTS) -ldlib -lblas -llapack
