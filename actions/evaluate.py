@@ -10,7 +10,7 @@ def evaluate_model(args, binary, modelfile):
 def evaluate(args):
     if args.models:
         for m in args.models:
-            evaluate_model(args, 'models/evaluate_{}'.format(m), 'evaluate_{}.model'.format(m))
+            evaluate_model(args, 'models/evaluate_{}'.format(m), 'train_{}.model'.format(m))
     else:
         for modelfile in glob.glob('train_*.model'):
             binary = 'models/evaluate_{}'.format(modelfile[6:-6])
