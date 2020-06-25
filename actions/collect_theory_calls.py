@@ -5,18 +5,20 @@ import progressbar
 import shutil
 import sys
 
+from actions import utils
+
 def collect_theory_calls(args):
     target = args.target_dir
-    if not os.path.isdir(target):
-        os.makedirs(target, exist_ok = True)
-    elif len(os.listdir(target)) > 0:
-        logging.error('The given target directory {} is not empty.'.format(target))
-        sys.exit(1)
+    utils.assert_is_empty_dir(target)
     for s in args.source:
         logging.info('Processing source "{}"'.format(s))
         files = glob.glob("{}/**/*.smt2".format(s), recursive = True)
         bar = progressbar.ProgressBar(maxval = len(files)).start()
         for file in bar(files):
             logging.debug('Processing file "{}"'.format(file))
-            shutil.copy(file, target)
+            if not args.dry:
+                shutil.copy(file, target)
         bar.finish()
+    
+    print('Now run every relevant solver on the collect benchmarks as follows:')
+    print('\t{} generate-results --benchmarks {} --solver {{solver}}'.format(sys.argv[0], target))
