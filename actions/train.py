@@ -8,7 +8,7 @@ def build_models(args):
         subprocess.call(['make', 'dlib'], cwd = 'models')
     logging.info('building model binaries')
     if not args.dry:
-        subprocess.call(['make'], cwd = 'models')
+        subprocess.call(['make', '-j4'], cwd = 'models')
 
 def train_model(args, binary, modelfile):
     logging.info('training {} to {}'.format(binary, modelfile))
