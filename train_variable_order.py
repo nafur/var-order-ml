@@ -38,7 +38,7 @@ parser_etc = subparsers.add_parser('export-theory-calls', help='runs a solver th
 parser_etc.add_argument('--solver', default=os.path.join(scratch_dir, 'CVC4/build/bin/cvc4-tc-export'), help='full path to a solver binary that exports theory calls (default: %(default)s)')
 parser_etc.add_argument('--solver-options', default='--no-nl-ext-inc-prec --nl-cad --theoryof-mode=type', help='options passed to the solver (default: %(default)s)')
 parser_etc.add_argument('--benchmarks', action='append', default='non_incremental_QF_NRA', help='benchmark set to use (default: %(default)s)')
-parser_etc.add_argument('--target', default='slurmwd/{:%m%d-%H%M}-theory-calls'.format(datetime.datetime.now()), help='Target directory (default: %(default)s)')
+parser_etc.add_argument('--target', default=os.path.join(scratch_dir, 'slurmwd', '{:%m%d-%H%M}-theory-calls'.format(datetime.datetime.now())), help='Target directory (default: %(default)s)')
 
 # Subparser for collect-theory-calls
 parser_ctc = subparsers.add_parser('collect-theory-calls', help='collects the exported theory calls into one directory')

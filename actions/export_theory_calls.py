@@ -8,7 +8,7 @@ def export_theory_calls(args):
         '--time-limit', args.timeout,
         '--solver-options', args.solver_options,
         '--benchmark-sets', args.benchmarks,
-        '--working-dir', '{}-theory-calls'.format(args.target),
+        '--working-dir', '{}'.format(args.target),
         args.solver
     ]
     logging.info('Executing {}'.format(' '.join(map(str, cmd))))
