@@ -13,6 +13,7 @@ def collect_features(benchmark_dir):
     files = glob.glob("{}/*.smt2".format(benchmark_dir))
     features = {}
 
+    logging.info('collecting features from {}'.format(benchmark_dir))
     bar = progressbar.ProgressBar(maxval = len(files)).start()
     for file in bar(files):
         logging.debug('parsing features from {}'.format(file))
@@ -26,9 +27,10 @@ def collect_features(benchmark_dir):
 def export_as_csv(args):
     bar = progressbar.ProgressBar(maxval = len(args.source)).start()
     csvs = {}
+    logging.info('generating csv files')
     for source in bar(args.source):
         csvfilename = os.path.join(source, 'data.csv')
-        logging.info('generating csv from {} to {}'.format(source, csvfilename))
+        logging.debug('generating csv from {} to {}'.format(source, csvfilename))
         output = open(csvfilename, 'w')
         subprocess.call([args.script, '--csv', '--no-vbs', source], stdout = output)
         solvername = os.path.basename(source)
@@ -37,6 +39,7 @@ def export_as_csv(args):
     return csvs
 
 def merge_solver_results(results, solvername, csvfilename):
+    logging.info('loading results for {}'.format(solvername))
     file = open(csvfilename)
     reader = csv.DictReader(file)
     for row in reader:
