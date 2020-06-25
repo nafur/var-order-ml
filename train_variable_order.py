@@ -11,7 +11,7 @@ import shutil
 import subprocess
 import sys
 
-from actions import export_theory_calls, collect_theory_calls, generate_results, collect_results
+from actions import export_theory_calls, collect_theory_calls, generate_results, collect_results, train
 
 def guess_scratch_dir():
     match = re.match('(/barrett/scratch/[0-9a-zA-Z]+).*', os.getcwd())
@@ -55,14 +55,15 @@ parser_gr.add_argument('--solver-options', default='--no-nl-ext-inc-prec --nl-ca
 parser_gr.add_argument('--benchmarks', default='theory_calls', help='benchmark set to use (default: %(default)s)')
 
 # Subparser for collect-results
-parser_cr = subparsers.add_parser('collect-results', help='Collects results from the solver runs')
+parser_cr = subparsers.add_parser('collect-results', help='collect results from the solver runs')
 parser_cr.add_argument('benchmarks', help='benchmark directory')
 parser_cr.add_argument('source', nargs='+', help='source directory')
 parser_cr.add_argument('--script', default='/barrett/scratch/local/bin/cmpr.py', help='analysis script for slurm benchmarks (default: %(default)s)')
 parser_cr.add_argument('--result', default='data.json', help='data file with all collected results (default: %(default)s)')
 
 # Subparser for train
-parser_t = subparsers.add_parser('train', help='Train the classifiers')
+parser_t = subparsers.add_parser('train', help='train the classifiers')
+parser_t.add_argument('data', default='data.json', help='data file with results')
 
 # Subparser for evaluate
 parser_e = subparsers.add_parser('evaluate', help='Evaluate the classifiers')
@@ -84,5 +85,7 @@ elif args.subcommand == 'generate-results':
     generate_results.generate_results(args)
 elif args.subcommand == 'collect-results':
     collect_results.collect_results(args)
+elif args.subcommand == 'train':
+    train.train(args)
 else:
     print('Unknown: {}'.format(args.subcommand))

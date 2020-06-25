@@ -2,7 +2,7 @@ DEPS := $(wildcard *.h)
 
 all: evaluate_cw_krr evaluate_cw_svr evaluate_krr train_cw_krr train_cw_svr train_krr
 
-download_dlib:
+dlib:
 	git clone https://github.com/davisking/dlib.git
 	cd dlib \
 		&& mkdir build && cd build \
