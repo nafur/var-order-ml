@@ -13,7 +13,7 @@ def build_models(args):
 def train_model(args, binary, modelfile):
     logging.info('training {} to {}'.format(binary, modelfile))
     if not args.dry:
-        subprocess.call([binary, args.data, modelfile], cwd = 'models')
+        subprocess.call([binary, args.data, modelfile])
 
 def train(args):
     build_models(args)
