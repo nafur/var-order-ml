@@ -45,7 +45,7 @@ parser_etc.add_argument('--target', default=os.path.join(scratch_dir, 'slurmwd',
 # Subparser for collect-theory-calls
 parser_ctc = subparsers.add_parser('collect-theory-calls', help='collects the exported theory calls into one directory')
 parser_ctc.add_argument('source', nargs='+', help='source directory')
-parser_ctc.add_argument('--target-dir', default='theory-calls', help='where to collect all theory calls (default: %(default)s)')
+parser_ctc.add_argument('--target-dir', default='theory_calls', help='where to collect all theory calls (default: %(default)s)')
 
 # Subparser for generate-results
 parser_gr = subparsers.add_parser('generate-results', help='run one solver on the exported theory calls', parents=[slurm_options_parser])
