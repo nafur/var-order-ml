@@ -5,7 +5,7 @@ import subprocess
 def evaluate_model(args, binary, modelfile):
     logging.info('evaluating {} with {}'.format(binary, modelfile))
     if not args.dry:
-        subprocess.call([binary, args.data, modelfile])
+        subprocess.call([binary, modelfile, args.data])
 
 def evaluate(args):
     if args.models:
