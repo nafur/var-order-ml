@@ -33,6 +33,7 @@ parser = argparse.ArgumentParser(description='use machine learning to learn vari
 parser.add_argument('-v', '--verbose', action='count', default=0, help = 'be more verbose')
 parser.add_argument('--dry', action = 'store_true', help = 'do not actually execute anything')
 subparsers = parser.add_subparsers(dest='subcommand')
+subparsers.required = True
 
 # Subparser for export-theory-calls
 parser_etc = subparsers.add_parser('export-theory-calls', help='runs a solver that exports all theory calls to separate files', parents=[slurm_options_parser])
@@ -66,8 +67,13 @@ parser_t = subparsers.add_parser('train', help='Train the classifiers')
 # Subparser for evaluate
 parser_e = subparsers.add_parser('evaluate', help='Evaluate the classifiers')
 
-
-args = parser.parse_args()
+try:
+    args = parser.parse_args()
+except:
+    print()
+    print()
+    parser.print_help()
+    sys.exit(1)
 
 if args.verbose == 0:
     logging.basicConfig(level=logging.WARN)
