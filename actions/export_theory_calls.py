@@ -20,3 +20,6 @@ def export_theory_calls(args):
     logging.info('Executing {}'.format(' '.join(cmd)))
     if not args.dry:
         subprocess.call(cmd)
+
+    print('Once this slurm job has finished, continue with collecting the theory calls with:')
+    print('\t{} collect-theory-calls {}'.format(sys.argv[0], args.target))
