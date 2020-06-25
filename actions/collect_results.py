@@ -7,6 +7,8 @@ import progressbar
 import subprocess
 import sys
 
+from actions import utils
+
 def collect_features(benchmark_dir):
     files = glob.glob("{}/*.smt2".format(benchmark_dir))
     features = {}
@@ -49,9 +51,7 @@ def merge_solver_results(results, solvername, csvfilename):
         logging.debug('loaded result for {} on {}: {}'.format(solvername, row['benchmark'], float(row['time_cpu'])))
 
 def collect_results(args):
-    if not os.path.isfile(args.script):
-        logging.error('given script {} does not exist'.format(args.script))
-        sys.exit(1)
+    utils.assert_is_executable(args.script)
 
     features = collect_features(args.benchmarks)
     csvs = export_as_csv(args)

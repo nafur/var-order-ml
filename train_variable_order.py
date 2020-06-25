@@ -31,6 +31,7 @@ slurm_options_parser.add_argument('--timeout', type=int, default=600, help='time
 # Main parser
 parser = argparse.ArgumentParser(description='use machine learning to learn variable orderings')
 parser.add_argument('-v', '--verbose', action='count', default=0, help = 'be more verbose')
+parser.add_argument('--dry', action = 'store_true', help = 'do not actually execute anything')
 subparsers = parser.add_subparsers(dest='subcommand')
 
 # Subparser for export-theory-calls

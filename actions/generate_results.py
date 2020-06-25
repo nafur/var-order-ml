@@ -2,7 +2,11 @@ import logging
 import os
 import subprocess
 
+from actions import utils
+
 def generate_results(args):
+    utils.assert_is_executable(args.script)
+
     cmd = [
         args.script,
         '-p', args.partition,

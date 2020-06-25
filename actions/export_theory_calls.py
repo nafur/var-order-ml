@@ -1,8 +1,14 @@
 import logging
+import os
 import subprocess
+import sys
+
+from actions import utils
 
 def export_theory_calls(args):
-    cmd = [
+    utils.assert_is_executable(args.script)
+    
+    cmd = list(map(str, [
         args.script,
         '-p', args.partition,
         '--time-limit', args.timeout,
@@ -10,6 +16,7 @@ def export_theory_calls(args):
         '--benchmark-sets', args.benchmarks,
         '--working-dir', '{}'.format(args.target),
         args.solver
-    ]
-    logging.info('Executing {}'.format(' '.join(map(str, cmd))))
-    # subprocess.call(cmd)
+    ]))
+    logging.info('Executing {}'.format(' '.join(cmd)))
+    if not args.dry:
+        subprocess.call(cmd)
