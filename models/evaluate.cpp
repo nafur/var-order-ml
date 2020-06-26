@@ -13,13 +13,13 @@
 
 int main(int argc, char* argv[]) {
     auto files = parse_evaluate_commandline(argc, argv);
-    Data data = load_data(files.second);
+    Data data = load_data(files.first);
 
     Data training_data = data;
     filter_data(training_data);
 
     CLASSIFIER obj;
-    dlib::deserialize(files.first) >> obj;
+    dlib::deserialize(files.second) >> obj;
 
     evaluate_classifier(obj, training_data, data);
 

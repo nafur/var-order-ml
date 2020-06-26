@@ -24,7 +24,7 @@ std::pair<std::string,std::string> parse_train_commandline(int argc, char* argv[
 }
 
 void print_evaluate_usage_and_exit(int argc, char* argv[]) {
-    std::cout << "Usage: " << argv[0] << " <model file> <data input file>" << std::endl;
+    std::cout << "Usage: " << argv[0] << " <data input file> <model file>" << std::endl;
     std::exit(1);
 }
 

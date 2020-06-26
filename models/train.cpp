@@ -12,7 +12,7 @@
 
 int main(int argc, char* argv[]) {
     auto files = parse_train_commandline(argc, argv);
-    Data data = load_data(files.second);
+    Data data = load_data(files.first);
 
     Data training_data = data;
     filter_data(training_data);
