@@ -1,7 +1,7 @@
 DEPS := $(wildcard *.h)
 
-all: evaluate_cw_krr evaluate_cw_svr evaluate_krr evaluate_mlp \
-	train_cw_krr train_cw_svr train_krr train_mlp
+all: bin/evaluate_cw_krr bin/evaluate_cw_svr bin/evaluate_krr bin/evaluate_mlp \
+	bin/train_cw_krr bin/train_cw_svr bin/train_krr bin/train_mlp
 
 dlib:
 	git clone https://github.com/davisking/dlib.git
@@ -10,29 +10,31 @@ dlib:
 		&& cmake -DDLIB_JPEG_SUPPORT=OFF -DDLIB_PNG_SUPPORT=OFF ../ \
 		&& make -j4 dlib
 
+bin:
+	mkdir -p bin/
 
 OPTS := -std=c++11 -g -Wno-unknown-attributes -I dlib/ -L dlib/build/dlib/ -ldlib -lblas -llapack
 
-evaluate_cw_krr: evaluate.cpp $(DEPS)
+bin/evaluate_cw_krr: evaluate.cpp $(DEPS) bin
 	clang++ -DCLASSIFIER="ClassificationWrapper<KRRRegression>" -o $@ $< $(OPTS)
 
-evaluate_cw_svr: evaluate.cpp $(DEPS)
+bin/evaluate_cw_svr: evaluate.cpp $(DEPS) bin
 	clang++ -DCLASSIFIER="ClassificationWrapper<SVRRegression>" -o $@ $< $(OPTS)
 
-evaluate_krr: evaluate.cpp $(DEPS)
+bin/evaluate_krr: evaluate.cpp $(DEPS) bin
 	clang++ -DCLASSIFIER="KRRClassifier" -o $@ $< $(OPTS)
 
-evaluate_mlp: evaluate.cpp $(DEPS)
+bin/evaluate_mlp: evaluate.cpp $(DEPS) bin
 	clang++ -DCLASSIFIER="MLPClassifier" -o $@ $< $(OPTS)
 
-train_cw_krr: train.cpp $(DEPS)
+bin/train_cw_krr: train.cpp $(DEPS) bin
 	clang++ -DCLASSIFIER="ClassificationWrapper<KRRRegression>" -o $@ $< $(OPTS)
 
-train_cw_svr: train.cpp $(DEPS)
+bin/train_cw_svr: train.cpp $(DEPS) bin
 	clang++ -DCLASSIFIER="ClassificationWrapper<SVRRegression>" -o $@ $< $(OPTS)
 
-train_krr: train.cpp $(DEPS)
+bin/train_krr: train.cpp $(DEPS) bin
 	clang++ -DCLASSIFIER="KRRClassifier" -o $@ $< $(OPTS)
 
-train_mlp: train.cpp $(DEPS)
+bin/train_mlp: train.cpp $(DEPS) bin
 	clang++ -DCLASSIFIER="MLPClassifier" -o $@ $< $(OPTS)
