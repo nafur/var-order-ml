@@ -12,10 +12,15 @@ class SVRRegression {
 
     dlib::decision_function<kernel_type> tester;
 
+    static constexpr bool scale_log = true;
+
     void load_data(const Data& data, std::size_t solver_id) {
         for (const auto& sample: data) {
             samples.push_back(dlib::mat(get_features(sample)));
             labels.push_back(get_results(sample)[solver_id]);
+            if (scale_log) {
+                labels.back() = std::log2(labels.back() + 1);
+            }
         }
     }
 
@@ -39,7 +44,11 @@ public:
     }
 
     double operator()(const Features& f) const {
-        return tester(dlib::mat(f));
+        if (scale_log) {
+            return std::exp2(tester(dlib::mat(f))) - 1;
+        } else {
+            return tester(dlib::mat(f));
+        }
     }
 };
 
